@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", Cambria, "Times New Roman";
+}
+
+.main-header {
+  width: 100%;
+  /* background-color: #8d5699; */
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.main-title {
+  text-decoration: none;
+  color: #8d5699;
+  font-weight: 900;
+  font-size: x-large;
+  text-transform: uppercase;
+  text-decoration: underline;
+  padding-bottom: 8px;
+  background: radial-gradient(
+        circle closest-side,
+        currentColor 80%,
+        transparent
+      ) -12px 100% /12px 12px no-repeat,
+    linear-gradient(currentColor 0 0) bottom left / var(--d, 0) 12px no-repeat;
+  transition: 0.3s linear;
+}
+
+.main-title:hover {
+  --d: 50%;
+  background-position: 50% 100%, bottom left;
+}
+
+.main-title span {
+  border: 3px solid #8d5699;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+}
+
+.main-header__nav {
+  /* 
+    height: 100%;
+    width: 100%;
+  */
+  display: flex;
+}
+
+.main-header__item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.main-header__item {
+  margin: 0 1rem;
+  padding: 0;
+  font-size: larger;
+}
+
+.main-header__item a {
+  text-decoration: none;
+  /* color: #e9c2ba; */
+  color: #00695c;
+  font-weight: 800;
+}
+
+.main-header__item a:hover,
+.main-header__item a:focus,
+.main-header__item a:active,
+.main-header__item a.active {
+  color: #8d5699;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.sharing__subtitle {
+  /* text-decoration: underline; */
+  /* border-bottom: 0.3rem solid #3f343f; */
+  font-weight: bold;
+  background: linear-gradient(currentColor 0 0) 100% 100% / var(--d, 0) 3px
+    no-repeat;
+  transition: 0.5s;
+}
+
+.sharing__subtitle:hover {
+  --d: 100%;
+}
+
+.sharing form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.sharing__input {
+  padding: 1rem;
+}
+
+.sharing__btn {
+  background-color: #8d5699;
+  text-decoration: none;
+  padding: 1rem;
+  color: #fff;
+  border: 1px solid #00695c;
+  font-size: x-large;
+  border-radius: 5px;
+}
+
+.sharing__btn:hover,
+.sharing__btn:focus {
+  background-color: #fff;
+  /* color: #8e9b8766; */
+  border: 2px solid #00695c;
+  color: #8d5699;
+  cursor: pointer;
+}

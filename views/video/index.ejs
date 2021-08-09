@@ -1,0 +1,16 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main class="content">
+        <div class="sharing">
+            <h1 class="sharing__title">Easy Video Sharing</h1>
+            <h3 class="sharing__subtitle">Upload and Share Video and Images with ease!</h3>
+            <form class="" action="/upload" method="POST" enctype="multipart/form-data">
+                <input hidden class="sharing__input" type="file" name="video" id="video">
+                <button id="upload_btn"  class="sharing__btn">Upload Video</button>
+            </form>
+        </div>
+    </main>
+
+<%- include('../includes/end.ejs') %>
