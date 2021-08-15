@@ -145,8 +145,8 @@ body {
 }
 .alert {
   width: 50%;
-  margin: 20px auto;
-  padding: 30px;
+  margin: 20px auto 0 auto;
+  padding: 3px;
   position: relative;
   border-radius: 5px;
   box-shadow: 0 0 15px 5px #ccc;
@@ -180,6 +180,7 @@ body {
 .danger-alert {
   background-color: #f7a7a3;
   border-left: 5px solid #8f130c;
+  color: #fff;
 }
 
 .warning-alert {

@@ -2,22 +2,30 @@
     <a class="main-title" href="/">Stream <span>Fidio</span></a>
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
-            <li class="main-header__item">
+            <!-- <li class="main-header__item">
                 <a class="" href="#">Log In</a>
             </li>
             <li class="main-header__item">
                 <a class="" href="#">Sign Up</a>
-            </li>
+            </li> -->
             <li class="main-header__item">
-                <a class="" href="#">Privacy & Terms</a>
-            </li>
+                <a class="" href="/privacy">Privacy & Terms</a>
+            </li>          
         </ul>
     </nav>
 </header>
 
 <% if (errorMsg !== '') { %>
 <div class="alert <%= alertType %>">
-    <h3><%= errorMsg %></h3>
+    <% if (typeof errorMsg === 'string') { %>
+        <h3><%= errorMsg %></h3>
+    <% } else { %>
+        <ul style=" font-weight: 800;">
+            <% errorMsg.forEach(function(err) { %>
+               <li> <%= err.msg %></li>
+            <% }); %> 
+           </ul>
+    <% } %>
     <a id="close">&times;</a>
 </div>
 <% } %>

@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main class="content">
+       <div class="report">
+           <h2>Whats wrong with this video</h2>
+           <p>Please, register your complaint and we will take appropriate action.</p>
+        <form action="/report/<%= videoId %>" method="post">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" name="name" id="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" name="subject" id="subject">
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Complaint" name="complaint" id="complaint" cols="30" rows="10"></textarea>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+       </div>
+    </main>
+
+<%- include('../includes/end.ejs') %>

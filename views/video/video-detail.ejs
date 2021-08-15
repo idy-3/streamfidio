@@ -10,7 +10,13 @@
                 <video src="<%= video.videoUrl %>" autoplay controls></video>
                 
             <% } %>
-            <div class="media_footer"><span><%= dateCreated %></span> <span><%= video.views %> views</span></div>
+            <div class="media_footer">
+                <span><%= dateCreated %></span> 
+                <span>
+                    <b><%= video.views %> views</b> 
+                    <a href="/report/<%= video._id %>">Report</a>
+                </span>
+            </div>
        </div>
     </main>
 
