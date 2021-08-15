@@ -6,6 +6,7 @@ const videoSchema = new Schema(
   {
     videoUrl: { type: String, required: true },
     type: String,
+    views: { type: Number, required: false, default: 0 },
   },
   { timestamps: true }
 );

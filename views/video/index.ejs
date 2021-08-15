@@ -6,11 +6,11 @@
         <div class="sharing">
             <h1 class="sharing__title">Easy Video Sharing</h1>
             <h3 class="sharing__subtitle">Upload and Share Video and Images with ease!</h3>
-            <form class="" action="/upload" method="POST" enctype="multipart/form-data">
-                <input hidden class="sharing__input" type="file" name="video" id="video">
-                <button id="upload_btn"  class="sharing__btn">Upload Video</button>
-            </form>
+            <!-- <form class="" action="/upload" method="POST" enctype="multipart/form-data"> -->
+                <input onchange="uploadFile()" hidden class="sharing__input" type="file" name="video" id="video">
+                <button id="upload_btn" type="button"  class="sharing__btn">Upload Video</button>
+            <!-- </form> -->
         </div>
     </main>
-
+    <script src="/js/upload.js"></script>
 <%- include('../includes/end.ejs') %>

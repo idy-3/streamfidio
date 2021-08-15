@@ -3,13 +3,14 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
     <main class="content">
-       <div>
+       <div class="media">
            <% if (video.type === 'image') { %>
                 <img src="<%= video.videoUrl %>" alt="<%= video.type %>" >
             <% } else {%>
                 <video src="<%= video.videoUrl %>" autoplay controls></video>
                 
             <% } %>
+            <div class="media_footer"><span><%= dateCreated %></span> <span><%= video.views %> views</span></div>
        </div>
     </main>
 

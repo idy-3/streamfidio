@@ -13,7 +13,7 @@ const app = express();
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "videos");
+    cb(null, "storage");
   },
   filename: (req, file, cb) => {
     cb(null, crypto.randomBytes(20).toString("hex") + "-" + file.originalname);
@@ -33,11 +33,11 @@ const fileFilter = (req, file, cb) => {
 
 app.use(express.urlencoded({ extended: false }));
 app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).single("video")
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("file")
 );
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/videos", express.static(path.join(__dirname, "videos")));
+app.use("/storage", express.static(path.join(__dirname, "storage")));
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -52,7 +52,7 @@ mongoose
   .connect(
     "mongodb+srv://areababa:NrKSMkb3RUFXyO3k@cluster0.icgkh.mongodb.net/fidio?retryWrites=true&w=majority",
 
-    { useNewUrlParser: true, useUnifiedTopology: true }
+    { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
   )
   .then((result) => {
     app.listen(3000);

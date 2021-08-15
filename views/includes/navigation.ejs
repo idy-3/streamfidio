@@ -14,3 +14,10 @@
         </ul>
     </nav>
 </header>
+
+<% if (errorMsg !== '') { %>
+<div class="alert <%= alertType %>">
+    <h3><%= errorMsg %></h3>
+    <a id="close">&times;</a>
+</div>
+<% } %>
