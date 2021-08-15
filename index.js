@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const express = require("express");
 const multer = require("multer");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const videoRoutes = require("./routes/video");
 
@@ -50,7 +51,7 @@ app.use((req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://areababa:NrKSMkb3RUFXyO3k@cluster0.icgkh.mongodb.net/fidio?retryWrites=true&w=majority",
+    process.env.DB_CONNECTION_STRING,
 
     { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
   )
