@@ -1,11 +1,16 @@
 .media {
-  box-shadow: 0px 3px 5px #ccc;
-  border-radius: 5px;
+  /* box-shadow: 0px 3px 5px #ccc; */
+  /* border-radius: 5px; */
   margin-bottom: 15rem;
-  min-width: 15rem;
+  min-width: 25rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.media video {
+  max-width: 60rem;
+  width: 100%;
 }
 
 .media img,
@@ -19,11 +24,27 @@
   display: flex;
   justify-content: space-between;
   font-weight: 800;
-  /* box-shadow: 0px 3px 5px #ccc; */
+  box-shadow: 0px 3px 5px #ccc;
   padding: 0.25rem 1.3rem;
-  /* border-radius: 5px; */
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
 }
 
+.media_footer:first-child {
+  padding-right: 1rem;
+}
+
+.media_footer-first {
+  display: flex;
+}
+
+.media_footer-first:first-child {
+  padding-right: 1rem;
+}
+.media_footer a {
+  color: #0000ee;
+  font-weight: 700;
+}
 .media_footer a:before {
   content: "\A";
   width: 0.625rem;
@@ -33,6 +54,30 @@
   margin: 0 0.75rem;
   border-radius: 50%;
 }
+
+.media_copy {
+  width: 100%;
+  box-shadow: 0px -3px 5px #ccc;
+  padding: 0.45rem 1.3rem;
+  border-radius: 5px;
+  display: flex;
+}
+
+.media_copy input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 6px;
+  margin-left: 6px;
+  /* text-align: center; */
+}
+
+.media_copy .icon {
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+/* .media_copy .icon */
 
 /* Styles for the /report page */
 .report {
@@ -60,6 +105,10 @@ textarea {
   padding: 12px;
 }
 
+:focus-visible {
+  outline: #8d5699 auto 1px;
+}
+
 .form-group {
   margin: 1.5rem 0.75rem 0 0.75rem;
 }
@@ -69,7 +118,8 @@ textarea {
   float: left;
 }
 
-.form-group button {
+/* Buttons classes */
+.btn {
   background-color: #8d5699;
   padding: 0.75rem 1.25rem;
   color: white;
@@ -80,9 +130,31 @@ textarea {
   margin-top: 0.5rem;
 }
 
-.form-group button:hover,
-.form-group button:focus {
+.btn:hover,
+.btn:focus {
   border: 1px solid #00695c;
   color: #00695c;
   background-color: white;
+}
+
+.btn-link {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  font-family: inherit;
+  font-size: 16px;
+  color: #0000ee;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn-link:before {
+  content: "\A";
+  width: 0.625rem;
+  height: 0.625rem;
+  background-color: #8d5699;
+  display: inline-block;
+  margin: 0 0.75rem;
+  border-radius: 50%;
 }

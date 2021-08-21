@@ -4,6 +4,12 @@
     <%- include('../includes/navigation.ejs') %>
     <main class="content">
        <div class="media">
+        <div class="media_copy" >
+            <i onclick="getLink()" class="icon">
+                <%- include('../includes/copy-svg.ejs') %>
+            </i>
+            <input type="text" name="copy" id="copy-link" >
+        </div> 
            <% if (video.type === 'image') { %>
                 <img src="<%= video.videoUrl %>" alt="<%= video.type %>" >
             <% } else {%>
@@ -11,13 +17,31 @@
                 
             <% } %>
             <div class="media_footer">
-                <span><%= dateCreated %></span> 
+                <div class="media_footer-first">
+                    <b><%= dateCreated %></b>
+                    <form action="/delete" method="post">
+                        <!-- <a href="/delete/">Delete</a> -->
+                        <input type="hidden" value="<%= video._id %>" name="videoId">
+                        <button class="btn-link" type="submit" >Delete</button>
+                    </form>
+                </div> 
                 <span>
                     <b><%= video.views %> views</b> 
                     <a href="/report/<%= video._id %>">Report</a>
                 </span>
-            </div>
+            </div>       
+           
        </div>
+
     </main>
 
+    
+    <!-- <iframe 
+        width="560" 
+        height="315" 
+        src="https://www.youtube.com/embed/s4BibernJxU" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen></iframe> -->
 <%- include('../includes/end.ejs') %>

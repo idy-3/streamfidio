@@ -28,6 +28,8 @@ router.post(
 
 router.get("/privacy", videoController.getPrivacy);
 
+router.post("/delete", videoController.postDeleteVideo);
+
 router.get("/:videoId", videoController.getVideoDetail);
 
 module.exports = router;

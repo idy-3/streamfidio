@@ -1,4 +1,4 @@
-<header class="main-header">
+<header id="header" class="main-header">
     <a class="main-title" href="/">Stream <span>Fidio</span></a>
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
@@ -16,7 +16,7 @@
 </header>
 
 <% if (errorMsg !== '') { %>
-<div class="alert <%= alertType %>">
+<div id="error-close" class="alert <%= alertType %>">
     <% if (typeof errorMsg === 'string') { %>
         <h3><%= errorMsg %></h3>
     <% } else { %>
@@ -26,6 +26,6 @@
             <% }); %> 
         </ul>
     <% } %>
-    <a id="close">&times;</a>
+    <a onclick="errorFade()" id="close">&times;</a>
 </div>
 <% } %>

@@ -89,7 +89,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 10rem;
 }
 
 .sharing__subtitle {
@@ -186,4 +186,12 @@ body {
 .warning-alert {
   background-color: #ffd48a;
   border-left: 5px solid #8a5700;
+}
+
+/* Not Found Page */
+.not-found {
+  display: flex;
+  justify-content: center;
+  padding-top: 5rem;
+  color: #8d5699;
 }

@@ -46,7 +46,10 @@ app.set("views", "views");
 app.use(videoRoutes);
 
 app.use((req, res, next) => {
-  res.status(404).send("<h1>Page not Found!</h1>");
+  res.status(404).render("404.ejs", {
+    pageTitle: "Page Not Found",
+    errorMsg: "",
+  });
 });
 
 mongoose

@@ -7,10 +7,16 @@
             <h1 class="sharing__title">Easy Video Sharing</h1>
             <h3 class="sharing__subtitle">Upload and Share Video and Images with ease!</h3>
             <!-- <form class="" action="/upload" method="POST" enctype="multipart/form-data"> -->
-                <input onchange="uploadFile()" hidden class="sharing__input" type="file" name="video" id="video">
+                <input onchange="uploadFile()" hidden class="sharing__input" type="file" accept="image/png, image/jpeg, .mp4" name="video" id="video">
                 <button id="upload_btn" type="button"  class="sharing__btn">Upload Video</button>
-            <!-- </form> -->
+            <!-- </form> -->           
+            
         </div>
     </main>
     <script src="/js/upload.js"></script>
 <%- include('../includes/end.ejs') %>
+
+<!-- <div style="width: 100%; height: 0px; position: relative; padding-bottom: 56.250%;">
+    <iframe src="https://streamable.com/e/mvnf5q" frameborder="0" width="100%" height="100%" allowfullscreen style="width: 100%; height: 100%; position: absolute;">
+</iframe>
+</div> -->

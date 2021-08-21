@@ -1,5 +1,7 @@
 const moment = require("moment");
 const { validationResult } = require("express-validator");
+const { unlink } = require("fs");
+const path = require("path");
 
 const Video = require("../models/video");
 const Report = require("../models/report");
@@ -15,10 +17,15 @@ exports.postAddVideo = (req, res, next) => {
   const file = req.file;
   // console.log(file);
   if (!file) {
-    return res.status(422).render("video/index", {
+    // return res.status(422).render("video/index", {
+    //   pageTitle: "Stream Fidio - Easy Video Sharing",
+    //   errorMsg: "Attached file is neither an image or a video.",
+    //   alertType: "danger-alert",
+    // });
+    return res.status(415).json({
       pageTitle: "Stream Fidio - Easy Video Sharing",
       errorMsg: "Attached file is neither an image or a video.",
-      alertType: "danger-alert",
+      alertType: "warning-alert",
     });
   }
 
@@ -45,7 +52,9 @@ exports.getVideoDetail = (req, res, next) => {
   // increment views by 1 and return the updated object
   Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } }, { new: true }).then(
     (video) => {
-      // console.log(video);
+      if (!video) {
+        return res.redirect("/");
+      }
 
       res.render("video/video-detail", {
         pageTitle: "Stream Fidio - Easy Video Sharing",
@@ -56,6 +65,26 @@ exports.getVideoDetail = (req, res, next) => {
     }
   );
 };
+
+exports.postDeleteVideo = (req, res, next) => {
+  const videoId = req.body.videoId;
+
+  Video.findByIdAndDelete(videoId, (err, docs) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // Delete Video File from FileSystem
+      unlink(path.join(__dirname, "..", docs.videoUrl), (err) => {
+        if (err) throw err;
+        // console.log("File was deleted");
+
+        res.redirect("/");
+      });
+    }
+  });
+};
+
+// Report Video Violating Use Policy
 
 exports.getReport = (req, res, next) => {
   const videoId = req.params.videoId;
