@@ -2,6 +2,7 @@ const moment = require("moment");
 const { validationResult } = require("express-validator");
 const { unlink } = require("fs");
 const path = require("path");
+const mongoose = require("mongoose");
 
 const Video = require("../models/video");
 const Report = require("../models/report");
@@ -14,6 +15,7 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.postAddVideo = (req, res, next) => {
+  let userId = req.session.user ? req.session.user._id : undefined;
   const file = req.file;
   // console.log(file);
   if (!file) {
@@ -33,6 +35,7 @@ exports.postAddVideo = (req, res, next) => {
   const video = new Video({
     videoUrl: videoUrl,
     type: file.mimetype.split("/")[0],
+    userId: userId,
   });
 
   video
@@ -42,7 +45,11 @@ exports.postAddVideo = (req, res, next) => {
       res.status(200).json({ path: result._id });
     })
     .catch((err) => {
-      res.status(500).json({ err: "500 Error: Upload failed!" });
+      res.status(500).json({
+        pageTitle: "Stream Fidio - Easy Video Sharing",
+        errorMsg: "500 Error: Upload failed!",
+        alertType: "warning-alert",
+      });
     });
 };
 
@@ -50,6 +57,9 @@ exports.getVideoDetail = (req, res, next) => {
   const videoId = req.params.videoId;
 
   // increment views by 1 and return the updated object
+  if (!mongoose.Types.ObjectId.isValid(videoId)) {
+    return next();
+  }
   Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } }, { new: true }).then(
     (video) => {
       if (!video) {
@@ -59,6 +69,7 @@ exports.getVideoDetail = (req, res, next) => {
       res.render("video/video-detail", {
         pageTitle: "Stream Fidio - Easy Video Sharing",
         errorMsg: "",
+
         video: video,
         dateCreated: moment(video.createdAt, "YYYYMMDD").fromNow(),
       });
@@ -91,6 +102,7 @@ exports.getReport = (req, res, next) => {
   res.render("video/report", {
     pageTitle: "Stream Fidio - Easy Video Sharing",
     errorMsg: "",
+
     videoId: videoId,
   });
 };

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { body } = require("express-validator");
 
+const isAuth = require("../middleware/is-auth");
 const videoController = require("../controllers/video");
 
 router.get("/", videoController.getIndex);
@@ -28,7 +29,7 @@ router.post(
 
 router.get("/privacy", videoController.getPrivacy);
 
-router.post("/delete", videoController.postDeleteVideo);
+router.post("/delete", isAuth, videoController.postDeleteVideo);
 
 router.get("/:videoId", videoController.getVideoDetail);
 

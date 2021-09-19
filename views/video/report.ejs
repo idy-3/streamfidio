@@ -3,7 +3,7 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
     <main class="content">
-       <div class="report">
+       <div class="card">
            <h2>Whats wrong with this video</h2>
            <p>Please, register your complaint and we will take appropriate action.</p>
         <form action="/report/<%= videoId %>" method="post">
@@ -19,6 +19,7 @@
                 <label for="subject">Subject</label>
                 <input type="text" name="subject" id="subject">
             </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="form-group">
                 <textarea placeholder="Complaint" name="complaint" id="complaint" cols="30" rows="10"></textarea>
                 <button class="btn" type="submit">Submit</button>

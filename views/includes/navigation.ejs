@@ -2,29 +2,36 @@
     <a class="main-title" href="/">Stream <span>Fidio</span></a>
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
-            <!-- <li class="main-header__item">
-                <a class="" href="#">Log In</a>
+            <% if (!isAuthenticated) { %>
+            <li class="main-header__item">
+                <a class="" href="/login">Log In</a>
             </li>
             <li class="main-header__item">
-                <a class="" href="#">Sign Up</a>
-            </li> -->
+                <a class="" href="signup">Sign Up</a>
+            </li>
+            <% } else { %>
             <li class="main-header__item">
-                <a class="" href="/privacy">Privacy & Terms</a>
-            </li>          
+                <!-- <a class="" href="/login">Login</a> -->
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button class="btn-link" type="submit">Logout</button>
+                </form>
+            </li>
+            <% } %>
         </ul>
     </nav>
 </header>
 
-<% if (errorMsg !== '') { %>
-<div id="error-close" class="alert <%= alertType %>">
-    <% if (typeof errorMsg === 'string') { %>
-        <h3><%= errorMsg %></h3>
-    <% } else { %>
-        <ul style=" font-weight: 800;">
+<% if (errorMsg) { %>
+<div id="error-close" class="alert <%= alertType %>">    
+    <% if (Array.isArray(errorMsg)) { %>
+        <ul style="list-style: none; font-weight: 800;">
             <% errorMsg.forEach(function(err) { %>
                 <li> <%= err.msg %></li>
             <% }); %> 
         </ul>
+        <% } else { %>            
+            <h3><%= errorMsg %></h3>
     <% } %>
     <a onclick="errorFade()" id="close">&times;</a>
 </div>

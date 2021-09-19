@@ -12,7 +12,11 @@ const getLink = () => {
   copyLink.select();
   copyLink.setSelectionRange(0, 99999);
   navigator.clipboard.writeText(copyLink.value).then(() => {
-    copyLink.insertAdjacentHTML("beforebegin", "Copied!");
+    const copyComfirm = document.getElementById("copied-tooltip");
+    copyComfirm.style.visibility = "visible";
+    setTimeout(() => {
+      copyComfirm.style.visibility = "hidden";
+    }, 500);
   });
 };
 
