@@ -70,6 +70,7 @@ app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
   // res.locals.userId = req.session.user._id
+  // console.log(res.locals.csrfToken);
   next();
 });
 
@@ -88,7 +89,7 @@ mongoose
   .connect(
     process.env.DB_CONNECTION_STRING,
 
-    { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then((result) => {
     app.listen(3000);

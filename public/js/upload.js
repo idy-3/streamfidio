@@ -10,8 +10,15 @@ const uploadFile = () => {
     const fidio = new FormData();
     fidio.append("file", fileInput.files[0]);
 
+    const csrfToken = document.getElementById("_csrf").value;
+
+    const headers = new Headers({
+            'X-CSRF-TOKEN': csrfToken
+        });
+
     fetch("/upload/", {
       method: "POST",
+      headers: headers,
       body: fidio,
     })
       .then((response) => {
