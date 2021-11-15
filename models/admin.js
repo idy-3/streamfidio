@@ -11,6 +11,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  isSuper: {
+    type: Boolean,
+    default: false
+  },
   videos: [
     {
       videoId: { type: Schema.Types.ObjectId, required: false },

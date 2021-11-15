@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const videoSchema = new Schema(
   {
+    name: String,
     videoUrl: { type: String, required: true },
     type: String,
     userId: { type: Schema.Types.ObjectId, ref: "User", required: false },

@@ -317,3 +317,12 @@ textarea {
 .footer a:focus {
   color: #ccc;
 }
+
+.toUpperCase{
+  text-transform: capitalize !important;
+}
+
+.btn-flex{
+  display: flex;
+  justify-content: space-evenly;
+}

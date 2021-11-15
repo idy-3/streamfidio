@@ -11,6 +11,14 @@
             </li>
             <% } else { %>
             <li class="main-header__item">
+                <a href="/dashboard" class=""> All Videos </a>
+            </li>
+            <% if(isSuper){%>
+            <li class="main-header__item">
+                <a href="/all-reports"  class=""> All Reports </a>
+            </li>
+            <% } %>
+            <li class="main-header__item">
                 <!-- <a class="" href="/login">Login</a> -->
                 <form action="/logout" method="post">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">

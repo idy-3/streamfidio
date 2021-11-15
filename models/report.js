@@ -9,7 +9,7 @@ const reportSchema = new Schema(
     email: { type: String, required: true },
     subject: { type: String, required: true },
     complaint: { type: String, required: true },
-    solved: { type: Boolean, required: false },
+    solved: { type: Boolean, required: false, default: false },
   },
   { timestamps: true }
 );

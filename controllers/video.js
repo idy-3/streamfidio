@@ -1,4 +1,3 @@
-const moment = require("moment");
 const { validationResult } = require("express-validator");
 const { unlink } = require("fs");
 const path = require("path");
@@ -33,6 +32,7 @@ exports.postAddVideo = (req, res, next) => {
 
   const videoUrl = "\\" + file.path;
   const video = new Video({
+    name: file.originalname,
     videoUrl: videoUrl,
     type: file.mimetype.split("/")[0],
     userId: userId,
@@ -56,10 +56,11 @@ exports.postAddVideo = (req, res, next) => {
 exports.getVideoDetail = (req, res, next) => {
   const videoId = req.params.videoId;
 
-  // increment views by 1 and return the updated object
+  // skip if videoId is not valid
   if (!mongoose.Types.ObjectId.isValid(videoId)) {
     return next();
   }
+  // increment views by 1 and return the updated object
   Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } }, { new: true }).then(
     (video) => {
       if (!video) {
@@ -71,7 +72,7 @@ exports.getVideoDetail = (req, res, next) => {
         errorMsg: "",
 
         video: video,
-        dateCreated: moment(video.createdAt, "YYYYMMDD").fromNow(),
+        dateCreated: video.createdAt,
       });
     }
   );

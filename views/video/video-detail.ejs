@@ -19,7 +19,7 @@
             <% } %>
             <div class="media_footer">
                 <div class="media_footer-first">
-                    <b><%= dateCreated %></b>
+                    <b><%= moment(video.createdAt, "YYYYMMDD").fromNow() %></b>
                     <% if (isAuthenticated) { %>
                     <form action="/delete" method="post">
                         <!-- <a href="/delete/">Delete</a> -->

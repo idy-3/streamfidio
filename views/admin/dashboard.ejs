@@ -3,14 +3,26 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
     <main class="content">
+        <% if (videos.length > 0) { %>
        <div class="dashboard">
         <!-- <button class="btn" type="submit">Get Videos</button> -->
-        <a href="#" class="btn btn-unline"> Get Videos </a>
-        <a href="#"  class="btn btn-unline"> Get Reports </a>
-       </div>
-       <div>
+        <!-- <a href="#" class="btn btn-unline"> Get Videos </a>
+        <a href="#"  class="btn btn-unline"> Get Reports </a> -->
+        <% for (let video of videos) { %>
+            <div class="card" style="width: 25rem;">
+                <h2><%= video.name %></h2>
+                <p><b>
+                    <%= moment(video.createdAt).format("ddd, Do MMM YYYY") %>
+                </b></p>
+                <a class="btn btn-unline toUpperCase" href="/<%= video._id %>">Show <%= video.type %></a>
+            </div>
+        <% } %>
+
+        </div>
+        <% } %>
+       <!-- <div>
            //display videos or reports
-       </div>
+       </div> -->
     </main>
 
 <%- include('../includes/end.ejs') %>

@@ -1,0 +1,45 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main class="content">
+        <% if (reports.length > 0) { %>
+       <div class="dashboard">
+
+        <% for (let report of reports) { %>
+            <div class="card report" style="width: 25rem;">
+                <h4 style="margin: 0px;"><%= report.subject %></h4>
+
+                <% if (report.solved){ %> 
+                    <h2 style="color: green;">SOLVED</h2>
+                <% } else { %>
+                    <h2 style="color: red;">PENDING</h2>
+                    <a href="/<%= report.videoId %>"><b>The Reported Content</b></a>
+                <% } %>
+
+                <h3 style="margin: 10px 0px 0px 0px;"><%= report.name %></h3>
+                <h3 style="margin: 0px;"><%= report.email %></h3>
+                <p><b>
+                    <%= moment(report.createdAt).format("ddd, Do MMM YYYY") %>
+                </b></p>
+                <!-- TODO: change alert to modal to display content -->
+                <a class="btn btn-unline" onclick="alert('<%= report.complaint %>')" >Get Report</a>
+                                
+                <form style="margin: 10px;" action="/solved-report/<%= report._id %>" method="post">
+                    <span>
+                        <input style="width: auto;" type="checkbox" id="solved" name="solved" value="true"  <% if (report.solved){ %> checked <% } %> />
+                        <label style="color: green;" for="solved"> <b>Solved</b></label>
+                    </span>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <!-- <input type="hidden" value="/solved-report" name="reportId"> -->
+                    <button class="btn-link " type="submit">Report Solved</button>                        
+                </form>
+            </div>
+        <% } %>
+
+        </div>
+        <% } %>
+
+    </main>
+
+<%- include('../includes/end.ejs') %>

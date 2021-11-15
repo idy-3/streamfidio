@@ -3,6 +3,8 @@ const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/admin");
+const Video = require("../models/video");
+const Report = require("../models/report");
 
 exports.getSignup = (req, res, next) => {
   res.render("admin/signup", {
@@ -68,6 +70,7 @@ exports.postLogin = (req, res, next) => {
         if (match) {
           req.session.isLoggedIn = true;
           req.session.user = user;
+          req.session.isSuper = user.isSuper;
           return req.session.save((err) => {
             console.log(err);
 
@@ -170,12 +173,64 @@ exports.getDashboard = (req, res, next) => {
   // if(!req.session.isLoggedIn){
   //   return res.redirect("/login");
   // }
-  res.render("admin/dashboard", {
-    pageTitle: "Stream Fidio - Dashboard",
-    errorMsg: req.flash("error")[0],
-    alertType: "warning-alert",
-  });
+  let isSuper = req.session.user.isSuper;
+  if(!isSuper){
+    Video.find({ userId: req.session.user._id }).then(
+      videos => {
+        res.render("admin/dashboard", {
+          videos: videos,
+          pageTitle: "Stream Fidio - Dashboard",
+          errorMsg: req.flash("error")[0],
+          alertType: "warning-alert",
+        });
+      }
+    ).catch((err) => {
+      console.log(err);
+    });
+  } else {
+      Video.find({}).then(
+        videos => {
+          res.render("admin/dashboard", {
+            videos: videos,
+            pageTitle: "Stream Fidio - Dashboard",
+            errorMsg: req.flash("error")[0],
+            alertType: "warning-alert",
+          });
+        }
+      ).catch((err) => {
+        console.log(err);
+      });
+  }
+    
 };
+
+exports.getReports = (req, res, next) => {
+  Report.find({}).then(
+    reports => {
+      res.render("admin/reports", {
+        reports: reports,
+        pageTitle: "Stream Fidio - Dashboard",
+        errorMsg: req.flash("error")[0],
+        alertType: "warning-alert",
+      });
+    }
+  ).catch((err) => {
+    console.log(err);
+  });
+}
+
+exports.postSolvedReport = (req, res, next) => {
+  const reportId = req.params.reportId;
+  const solved = req.body.solved;
+
+  const update = { solved: solved ? true : false };
+  Report.findOneAndUpdate({_id: reportId}, update)
+  .then(
+    res.redirect("/all-reports")
+  ).catch((err) => {
+    console.log(err);
+  });
+}
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy((err) => {

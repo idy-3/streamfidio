@@ -26,10 +26,12 @@ router.post("/new-password", adminController.postNewPassword);
 
 router.get("/dashboard", isAuth, adminController.getDashboard);
 
-router.post("/delete/video", isAuth, adminController.getDashboard);
+// router.post("/delete/video", isAuth, adminController.getDashboard);
 
-router.get("/all/reports", isAuth, adminController.getDashboard);
+router.get("/all-reports", isAuth, adminController.getReports);
 
-router.post("/solve/report", isAuth, adminController.getDashboard);
+router.post("/solved-report/:reportId", isAuth, adminController.postSolvedReport);
+
+// router.post("/solve/report", isAuth, adminController.getDashboard);
 
 module.exports = router;
