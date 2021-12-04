@@ -3,6 +3,9 @@ const crypto = require("crypto");
 
 const express = require("express");
 const multer = require("multer");
+const aws = require("aws-sdk");
+const multerS3 = require("multer-s3");
+
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
@@ -24,11 +27,28 @@ const sessionStore = new MongoDBStore({
 });
 const csrfProtection = csrf();
 
-const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "storage");
-  },
-  filename: (req, file, cb) => {
+const spacesEndpoint = new aws.Endpoint(process.env.DO_SPACES_ENDPOINT);
+const s3 = new aws.S3({
+  endpoint: spacesEndpoint, 
+  accessKeyId: process.env.DO_SPACES_KEY, 
+  secretAccessKey: process.env.DO_SPACES_SECRET
+});
+
+// const fileStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "storage");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, crypto.randomBytes(20).toString("hex") + "-" + file.originalname);
+//   },
+// });
+
+const fileStorage = multerS3({
+  s3: s3,
+  bucket: process.env.DO_SPACES_NAME,
+  acl: 'public-read',
+  key: (req, file, cb) => {
+    console.log(file)
     cb(null, crypto.randomBytes(20).toString("hex") + "-" + file.originalname);
   },
 });

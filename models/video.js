@@ -5,6 +5,8 @@ const Schema = mongoose.Schema;
 const videoSchema = new Schema(
   {
     name: String,
+    key: String,
+    fileSize: Number,
     videoUrl: { type: String, required: true },
     type: String,
     userId: { type: Schema.Types.ObjectId, ref: "User", required: false },

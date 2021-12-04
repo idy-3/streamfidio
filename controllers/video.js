@@ -16,7 +16,7 @@ exports.getIndex = (req, res, next) => {
 exports.postAddVideo = (req, res, next) => {
   let userId = req.session.user ? req.session.user._id : undefined;
   const file = req.file;
-  // console.log(file);
+  console.log(file);
   if (!file) {
     // return res.status(422).render("video/index", {
     //   pageTitle: "Stream Fidio - Easy Video Sharing",
@@ -30,9 +30,11 @@ exports.postAddVideo = (req, res, next) => {
     });
   }
 
-  const videoUrl = "\\" + file.path;
+  const videoUrl = "https://streamfidio.fra1.digitaloceanspaces.com/" + file.key;
   const video = new Video({
     name: file.originalname,
+    key: file.key,
+    fileSize: file.size,
     videoUrl: videoUrl,
     type: file.mimetype.split("/")[0],
     userId: userId,

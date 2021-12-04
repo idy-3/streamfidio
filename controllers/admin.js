@@ -72,7 +72,7 @@ exports.postLogin = (req, res, next) => {
           req.session.user = user;
           req.session.isSuper = user.isSuper;
           return req.session.save((err) => {
-            console.log(err);
+            err && console.log(err);
 
             res.redirect("/");
           });
@@ -234,7 +234,7 @@ exports.postSolvedReport = (req, res, next) => {
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy((err) => {
-    console.log(err);
+    err && console.log(err);
     res.redirect("/");
   });
 };
