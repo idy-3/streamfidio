@@ -1,12 +1,13 @@
 const router = require("express").Router();
 const { body } = require("express-validator");
+const { upload } = require("../utils/s3Client");
 
 const isAuth = require("../middleware/is-auth");
 const videoController = require("../controllers/video");
 
 router.get("/", videoController.getIndex);
 
-router.post("/upload", videoController.postAddVideo);
+router.post("/upload", upload, videoController.postAddVideo);
 
 router.get("/report/:videoId", videoController.getReport);
 

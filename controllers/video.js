@@ -3,8 +3,11 @@ const { unlink } = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 
+const { upload, s3Client } = require("../utils/s3Client");
 const Video = require("../models/video");
 const Report = require("../models/report");
+
+
 
 exports.getIndex = (req, res, next) => {
   res.render("video/index", {
@@ -16,7 +19,7 @@ exports.getIndex = (req, res, next) => {
 exports.postAddVideo = (req, res, next) => {
   let userId = req.session.user ? req.session.user._id : undefined;
   const file = req.file;
-  console.log(file);
+  // console.log(file);
   if (!file) {
     // return res.status(422).render("video/index", {
     //   pageTitle: "Stream Fidio - Easy Video Sharing",
@@ -44,7 +47,7 @@ exports.postAddVideo = (req, res, next) => {
     .save()
     .then((result) => {
       // console.log("VideoUrl added!");
-      res.status(200).json({ path: result._id });
+      res.status(200).json({ path: result._id.toString() });
     })
     .catch((err) => {
       res.status(500).json({
@@ -68,7 +71,7 @@ exports.getVideoDetail = (req, res, next) => {
       if (!video) {
         return res.redirect("/");
       }
-
+      // console.log(video);
       res.render("video/video-detail", {
         pageTitle: "Stream Fidio - Easy Video Sharing",
         errorMsg: "",
@@ -80,20 +83,29 @@ exports.getVideoDetail = (req, res, next) => {
   );
 };
 
-exports.postDeleteVideo = (req, res, next) => {
+exports.postDeleteVideo = async (req, res, next) => {
   const videoId = req.body.videoId;
 
-  Video.findByIdAndDelete(videoId, (err, docs) => {
+  Video.findByIdAndDelete(videoId, async (err, docs) => {
     if (err) {
       console.log(err);
     } else {
-      // Delete Video File from FileSystem
-      unlink(path.join(__dirname, "..", docs.videoUrl), (err) => {
-        if (err) throw err;
-        // console.log("File was deleted");
 
+      // console.log(docs);
+      // console.log("DOCS");
+      const params = {
+        Bucket: process.env.DO_SPACES_NAME,
+        Key: docs.key,
+      };
+
+      try{
+        const data = await s3Client.deleteObject(params).promise();
+        console.log("Success",data);
         res.redirect("/");
-      });
+      }catch(error){
+        console.log("error", error);
+      }
+      
     }
   });
 };

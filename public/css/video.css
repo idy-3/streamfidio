@@ -125,3 +125,30 @@
   align-items: stretch;
   max-width: 80rem;
 }
+
+
+.progress-bar{
+  margin-top: 0.9rem;
+  height: 2.1875rem;
+  width: 15.625rem;
+  /* border: 2px solid #8d5699; */
+  background-color: #6c8d89;
+  border-radius: 5px;
+}
+
+.progress-bar-fill{
+  height: 100%;
+  width: 0%;
+  background-color: #8d5699;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  transition: width 0.25s;
+  padding-top: 1px;
+}
+
+.progress-bar-text{
+  margin-left: 10px;
+  font-weight: bold;
+  color: #fff;
+}

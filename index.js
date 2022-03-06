@@ -1,24 +1,22 @@
 const path = require("path");
-const crypto = require("crypto");
 
 const express = require("express");
-const multer = require("multer");
-const aws = require("aws-sdk");
-const multerS3 = require("multer-s3");
 
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
+const cookieParser = require('cookie-parser')
 const flash = require("connect-flash");
 const moment = require("moment");
 
 require("dotenv").config();
 
+
 const videoRoutes = require("./routes/video");
 const adminRoutes = require("./routes/admin");
 
-const mongoConnect = require("./utils/database").mongoConnect;
+// const mongoConnect = require("./utils/database").mongoConnect;
 
 const app = express();
 const sessionStore = new MongoDBStore({
@@ -27,47 +25,13 @@ const sessionStore = new MongoDBStore({
 });
 const csrfProtection = csrf();
 
-const spacesEndpoint = new aws.Endpoint(process.env.DO_SPACES_ENDPOINT);
-const s3 = new aws.S3({
-  endpoint: spacesEndpoint, 
-  accessKeyId: process.env.DO_SPACES_KEY, 
-  secretAccessKey: process.env.DO_SPACES_SECRET
-});
+// const { upload } = require("./utils/s3Client");
 
-// const fileStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "storage");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, crypto.randomBytes(20).toString("hex") + "-" + file.originalname);
-//   },
-// });
-
-const fileStorage = multerS3({
-  s3: s3,
-  bucket: process.env.DO_SPACES_NAME,
-  acl: 'public-read',
-  key: (req, file, cb) => {
-    console.log(file)
-    cb(null, crypto.randomBytes(20).toString("hex") + "-" + file.originalname);
-  },
-});
-
-const fileFilter = (req, file, cb) => {
-  if (
-    file.mimetype.startsWith("image/") ||
-    file.mimetype.startsWith("video/")
-  ) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
 
 app.use(express.urlencoded({ extended: false }));
-app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).single("file")
-);
+// app.use(
+//   upload
+// );
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/storage", express.static(path.join(__dirname, "storage")));
@@ -81,6 +45,7 @@ app.use(
     store: sessionStore,
   })
 );
+app.use(cookieParser())
 app.use(csrfProtection);
 app.use(flash());
 
@@ -108,19 +73,36 @@ app.use((req, res, next) => {
   });
 });
 
-mongoose
-  .connect(
-    process.env.DB_CONNECTION_STRING,
+// mongoose
+//   .connect(
+//     process.env.DB_CONNECTION_STRING,
 
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
-  .then((result) => {
-    app.listen(3000);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+//     { useNewUrlParser: true, useUnifiedTopology: true}
+//   )
+//   .then((result) => {
+//     app.listen(3000);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 // mongoConnect(() => {
 //   app.listen(3000);
 // });
+
+const connectDB = async () => {
+  try {
+      await mongoose
+      .connect(
+        process.env.DB_CONNECTION_STRING,
+    
+        { useNewUrlParser: true, useUnifiedTopology: true}
+      );
+
+      app.listen(3001);
+  } catch (err) {
+      console.log('Failed to connect to MongoDB', err);
+  }
+};
+
+connectDB();
