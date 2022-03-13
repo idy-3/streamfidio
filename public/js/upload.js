@@ -17,11 +17,7 @@ const uploadFile = () => {
     fidio.append("file", fileInput.files[0]);
 
     const csrfToken = document.getElementById("_csrf").value;
-    console.log(fidio)
-
-    // const headers = new Headers({
-    //         'X-CSRF-TOKEN': csrfToken
-    //   });
+    // console.log(fidio)
 
     axios.post("/upload/", fidio, {        
         headers: {
@@ -50,16 +46,15 @@ const uploadFile = () => {
       })
       .catch((error) => {
         // Add the error alert banner with error message
-        console.log(error)
-        // error.json().then((msg) => {
-        //   const errorMsg = `<div id="error-close" class="alert ${msg.alertType}">
-        //                         <h3>${msg.errorMsg}</h3>        
-        //                       <a onclick="errorFade()" id="close">&times;</a>
-        //                     </div>`;
+        // console.log(error.response);
+        let err = error.response.data;
+        const errorMsg = `<div id="error-close" class="alert ${err.alertType}">
+                            <h3>${err.errorMsg}</h3>        
+                            <a onclick="errorFade()" id="close">&times;</a>
+                          </div>`;
 
-        //   const header = document.getElementById("header");
-        //   header.insertAdjacentHTML("afterend", errorMsg);
-        // });
-      });
+        const header = document.getElementById("header");
+        header.insertAdjacentHTML("afterend", errorMsg);
+        });
   }
 };

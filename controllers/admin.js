@@ -169,32 +169,59 @@ exports.postNewPassword = (req, res, next) => {
     });
 };
 
+const ITEMS_PER_PAGE = 12;
+
 exports.getDashboard = (req, res, next) => {
   // if(!req.session.isLoggedIn){
   //   return res.redirect("/login");
   // }
+  let totalVideos;
+  const page = +req.query.page || 1;
   let isSuper = req.session.user.isSuper;
   if(!isSuper){
-    Video.find({ userId: req.session.user._id }).then(
-      videos => {
+    Video.find().countDocuments().then(numVideos => {
+      totalVideos = numVideos;
+      return Video.find({ userId: req.session.user._id })
+      .skip((page - 1) * ITEMS_PER_PAGE)
+      .limit(ITEMS_PER_PAGE)
+    })
+    .then(videos => {
         res.render("admin/dashboard", {
           videos: videos,
           pageTitle: "Stream Fidio - Dashboard",
           errorMsg: req.flash("error")[0],
           alertType: "warning-alert",
+          currentPage: page,
+          hasNextPage: ITEMS_PER_PAGE * page < totalVideos,
+          hasPrevPage: page > 1,
+          nextPage: page + 1,
+          prevPage: page - 1,
+          lastPage: Math.ceil(totalVideos / ITEMS_PER_PAGE)
         });
       }
     ).catch((err) => {
       console.log(err);
     });
   } else {
-      Video.find({}).then(
+    Video.find().countDocuments().then(numVideos => {
+      totalVideos = numVideos;
+      return Video.find({})
+      .skip((page - 1) * ITEMS_PER_PAGE)
+      .limit(ITEMS_PER_PAGE)
+    })
+    .then(
         videos => {
           res.render("admin/dashboard", {
             videos: videos,
             pageTitle: "Stream Fidio - Dashboard",
             errorMsg: req.flash("error")[0],
             alertType: "warning-alert",
+            currentPage: page,
+            hasNextPage: ITEMS_PER_PAGE * page < totalVideos,
+            hasPrevPage: page > 1,
+            nextPage: page + 1,
+            prevPage: page - 1,
+            lastPage: Math.ceil(totalVideos / ITEMS_PER_PAGE)
           });
         }
       ).catch((err) => {
