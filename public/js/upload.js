@@ -33,13 +33,13 @@ const uploadFile = () => {
         }
       })
       .then((response) => {
-        console.log("UPLOAD");
-        console.log(response);
+        // console.log("UPLOAD");
+        // console.log(response);
         if (response.statusText === 'OK') {
           fileInput.value = null;
           window.location.href = "/" + response.data.path;
-          console.log(response);
-          console.log("redirected");
+          // console.log(response);
+          // console.log("redirected");
         } else {
           return Promise.reject(response);
         }
