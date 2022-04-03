@@ -14,7 +14,7 @@ services:
       args: 
         NODE_ENV: production
     ports:
-      - '80:3001'
+      - '3001:3001'
     env_file:
       - ./env/.env
     stdin_open: true
