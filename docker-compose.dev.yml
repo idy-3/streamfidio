@@ -11,12 +11,16 @@ services:
   streamfidio:
     build:
       context: .
-      args: 
-        NODE_ENV: production
+      args:
+        NODE_ENV: development
     ports:
       - '80:3001'
+    volumes:
+      - .:/app
+      - /app/node_modules
     env_file:
       - ./env/.env
+    command: npm run dev
     stdin_open: true
     depends_on:
       - mongodb
