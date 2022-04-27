@@ -8,7 +8,6 @@ const Video = require("../models/video");
 const Report = require("../models/report");
 
 
-
 exports.getIndex = (req, res, next) => {
   res.render("video/index", {
     pageTitle: "Stream Fidio - Easy Video Sharing",
@@ -21,19 +20,15 @@ exports.postAddVideo = (req, res, next) => {
   const file = req.file;
   // console.log(file);
   if (!file) {
-    // return res.status(422).render("video/index", {
-    //   pageTitle: "Stream Fidio - Easy Video Sharing",
-    //   errorMsg: "Attached file is neither an image or a video.",
-    //   alertType: "danger-alert",
-    // });
+   
     return res.status(415).json({
       pageTitle: "Stream Fidio - Easy Video Sharing",
       errorMsg: "Attached file is neither an image or a video.",
       alertType: "warning-alert",
     });
   }
-
-  const videoUrl = "https://streamfidio.fra1.digitaloceanspaces.com/" + file.key;
+  // https://streamfidio.ams3.cdn.digitaloceanspaces.com
+  const videoUrl = "https://streamfidio.ams3.cdn.digitaloceanspaces.com/" + file.key;
   const video = new Video({
     name: file.originalname,
     key: file.key,
@@ -91,8 +86,7 @@ exports.postDeleteVideo = async (req, res, next) => {
       console.log(err);
     } else {
 
-      // console.log(docs);
-      // console.log("DOCS");
+
       const params = {
         Bucket: process.env.DO_SPACES_NAME,
         Key: docs.key,

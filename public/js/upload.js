@@ -22,6 +22,8 @@ const uploadFile = () => {
     axios.post("/upload/", fidio, {        
         headers: {
           'Content-Type': 'multipart/form-data',
+
+          
           'X-CSRF-TOKEN': csrfToken
         },        
         onUploadProgress: (p) => {
