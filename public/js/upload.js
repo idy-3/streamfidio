@@ -37,7 +37,7 @@ const uploadFile = () => {
       .then((response) => {
         // console.log("UPLOAD");
         // console.log(response);
-        if (response.statusText === 'OK') {
+        if (response.status === 200) {
           fileInput.value = null;
           window.location.href = "/" + response.data.path;
           // console.log(response);
