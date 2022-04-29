@@ -1,9 +1,9 @@
 const { validationResult } = require("express-validator");
-const { unlink } = require("fs");
+// const { unlink } = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 
-const { upload, s3Client } = require("../utils/s3Client");
+const { s3Client } = require("../utils/s3Client");
 const Video = require("../models/video");
 const Report = require("../models/report");
 
@@ -95,7 +95,6 @@ exports.postDeleteVideo = async (req, res, next) => {
 
       console.log("****docs****")
       console.log(docs)
-
 
       const params = {
         Bucket: process.env.DO_SPACES_NAME,

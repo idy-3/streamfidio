@@ -35,6 +35,25 @@ body {
       ) -12px 100% /12px 12px no-repeat,
     linear-gradient(currentColor 0 0) bottom left / var(--d, 0) 12px no-repeat;
   transition: 0.3s linear;
+  width: max-content;
+}
+
+
+.main-title:hover {
+  --d: 50%;
+  background-position: 50% 100%, bottom left;
+}
+
+.main-title span {
+  border: 3px solid #8d5699;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+}
+
+.logo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media screen and (max-width: 480px) {
@@ -66,17 +85,6 @@ body {
     top: -13px;
     right: -38px;
   }
-}
-
-.main-title:hover {
-  --d: 50%;
-  background-position: 50% 100%, bottom left;
-}
-
-.main-title span {
-  border: 3px solid #8d5699;
-  padding: 0.3rem;
-  border-radius: 0.5rem;
 }
 
 .main-header__nav {
