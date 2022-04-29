@@ -54,7 +54,9 @@ exports.postAddVideo = (req, res, next) => {
 };
 
 exports.getVideoDetail = (req, res, next) => {
+  let userId = req.session.user ? req.session.user._id : undefined;
   const videoId = req.params.videoId;
+  let createdBy = false;
 
   // skip if videoId is not valid
   if (!mongoose.Types.ObjectId.isValid(videoId)) {
@@ -66,13 +68,18 @@ exports.getVideoDetail = (req, res, next) => {
       if (!video) {
         return res.redirect("/");
       }
-      // console.log(video);
+      
+      if (video.userId){
+        createdBy = video.userId.toString() === userId.toString();
+      }
+      
       res.render("video/video-detail", {
         pageTitle: "Stream Fidio - Easy Video Sharing",
         errorMsg: "",
 
         video: video,
         dateCreated: video.createdAt,
+        createdBy: createdBy,
       });
     }
   );
@@ -85,6 +92,9 @@ exports.postDeleteVideo = async (req, res, next) => {
     if (err) {
       console.log(err);
     } else {
+
+      console.log("****docs****")
+      console.log(docs)
 
 
       const params = {

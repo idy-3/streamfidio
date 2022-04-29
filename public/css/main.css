@@ -38,8 +38,33 @@ body {
 }
 
 @media screen and (max-width: 480px) {
+  .main-header{
+    flex-direction: column;
+  }
   .main-title {
     font-size: large;
+    text-align: center;
+  }
+  .main-header__nav{
+    flex-direction: column;
+    text-align: center;
+    margin-top: 4px;
+    border-top: #8d5699 1px solid;
+  }
+  .main-header__item-list {
+    flex-direction: column;
+  }
+  .logout{
+    padding-top: 0.2rem;
+  }
+  
+  .logout-btn{
+    margin-right: 1.625rem;
+  }
+  .logout-btn::before{
+    position: relative;
+    top: -13px;
+    right: -38px;
   }
 }
 

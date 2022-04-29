@@ -8,14 +8,17 @@
   justify-content: center;
 }
 
-.media video {
-  max-width: 60rem;
-  width: 100%;
+@media screen and (max-width: 480px) {
+  .media {
+    min-width: auto;
+  }
 }
 
 .media img,
 .media video {
-  display: block;
+  display: block;  
+  max-width: 60rem;
+  width: 100%;
 }
 
 .media_footer {

@@ -20,7 +20,7 @@
             <div class="media_footer">
                 <div class="media_footer-first">
                     <b><%= moment(video.createdAt, "YYYYMMDD").fromNow() %></b>
-                    <% if (isAuthenticated) { %>
+                    <% if (isAuthenticated && createdBy) { %>
                     <form action="/delete" method="post">
                         <!-- <a href="/delete/">Delete</a> -->
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
