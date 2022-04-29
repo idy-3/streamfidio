@@ -73,18 +73,7 @@ body {
   .main-header__item-list {
     flex-direction: column;
   }
-  .logout{
-    padding-top: 0.2rem;
-  }
-  
-  .logout-btn{
-    margin-right: 1.625rem;
-  }
-  .logout-btn::before{
-    position: relative;
-    top: -13px;
-    right: -38px;
-  }
+
 }
 
 .main-header__nav {

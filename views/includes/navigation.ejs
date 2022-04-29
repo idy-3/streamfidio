@@ -11,13 +11,13 @@
             </li>
             <% } else { %>
             <li class="main-header__item">
-                <a href="/dashboard" class=""> Videos </a>
+                <a href="/dashboard" class="">My Media</a>
             </li>
-            <% if(isSuper){%>
-            <li class="main-header__item">
-                <a href="/all-reports"  class=""> Reports </a>
-            </li>
-            <% } %>
+                <% if(isSuper){%>
+                    <li class="main-header__item">
+                        <a href="/all-reports"  class="">Reports</a>
+                    </li>
+                <% } %>
             <li class="main-header__item">
                 <!-- <a class="" href="/login">Login</a> -->
                 <form class="logout" action="/logout" method="post">
