@@ -169,7 +169,7 @@ exports.postNewPassword = (req, res, next) => {
     });
 };
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 5;
 
 exports.getDashboard = (req, res, next) => {
   // if(!req.session.isLoggedIn){

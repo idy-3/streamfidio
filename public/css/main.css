@@ -56,10 +56,16 @@ body {
   align-items: center;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 540px) {
   .main-header{
     flex-direction: column;
   }
+  .main-header__nav{
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
   .main-title {
     font-size: large;
     text-align: center;
