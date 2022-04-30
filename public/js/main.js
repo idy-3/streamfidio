@@ -34,3 +34,58 @@ const errorFade = () => {
     }
   }, 200);
 };
+
+
+const editMedia = (mediaId, mediaName) => {
+  // console.log(mediaId, mediaName);
+  const modal = document.getElementById("theModal");
+  const span = document.getElementsByClassName("close")[0];
+
+  if(modal){
+    modal.querySelector('#mediaNameForm').action = '/update-name/'+mediaId;
+    modal.querySelector('#mediaName').value = mediaName
+    const btn = modal.querySelector('button')
+
+    modal.style.display = "block"; 
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    btn.onclick = function(){
+      modal.style.display = "none";
+      // window.location.href = "/dashboard"
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  }
+}
+
+const getModal = (subject, complaint) => {
+
+  // Get the modal
+  var modal = document.getElementById("theModal");
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+  if (modal){
+    modal.querySelector('#reportSubject').innerHTML = subject;
+    modal.querySelector('#reportComplaint').innerHTML = complaint;
+
+    modal.style.display = "block";  
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  }
+}
+

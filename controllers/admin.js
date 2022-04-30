@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 
 const bcrypt = require("bcryptjs");
+const _ = require("underscore");
 
 const User = require("../models/admin");
 const Video = require("../models/video");
@@ -18,6 +19,11 @@ exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
+
+  if (password !== confirmPassword){
+    req.flash("error", "Wrong passwords");
+    return res.redirect("/signup");
+  }
 
   User.findOne({ email: email })
     .then((userDoc) => {
@@ -230,6 +236,20 @@ exports.getDashboard = (req, res, next) => {
   }
     
 };
+
+exports.postUpdateVideoName = (req, res, next) => {
+  const mediaId = req.params.mediaId;
+  const mediaName = _.escape(req.body.mediaName);
+
+  const update = { name: mediaName };
+  Video.findOneAndUpdate({_id: mediaId}, update)
+  .then(
+    res.redirect("/dashboard")
+  ).catch((err) => {
+    console.log(err);
+  });
+  
+}
 
 exports.getReports = (req, res, next) => {
   Report.find({}).then(

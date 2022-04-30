@@ -3,7 +3,17 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
     <main class="content">
-        <% if (reports.length > 0) { %>
+        <% if (reports.length > 0) { %>     
+        <!-- The Modal -->
+         <div id="theModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="reportSubject" style="margin-bottom: 7px;"></h2>
+            <p id="reportComplaint"></p>
+            </div>
+        </div>
+
        <div class="dashboard">
 
         <% for (let report of reports) { %>
@@ -22,8 +32,9 @@
                 <p><b>
                     <%= moment(report.createdAt).format("ddd, Do MMM YYYY") %>
                 </b></p>
-                <!-- TODO: change alert to modal to display content -->
-                <a class="btn btn-unline" onclick="alert('<%= report.complaint %>')" >Get Report</a>
+                <!-- The Modal Button -->
+                <a class="btn btn-unline" onclick='getModal("<%= report.subject %>","<%= report.complaint %>")' >Get Report</a>
+               
                                 
                 <form style="margin: 10px;" action="/solved-report/<%= report._id %>" method="post">
                     <span>

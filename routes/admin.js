@@ -26,7 +26,8 @@ router.post("/new-password", adminController.postNewPassword);
 
 router.get("/dashboard", isAuth, adminController.getDashboard);
 
-// router.post("/delete/video", isAuth, adminController.getDashboard);
+router.post("/update-name/:mediaId",  isAuth, adminController.postUpdateVideoName);
+// router.post("/delete/video", adminController.getDashboard);
 
 router.get("/all-reports", isAuth, adminController.getReports);
 

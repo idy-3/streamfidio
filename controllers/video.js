@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 // const { unlink } = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
+const _ = require("underscore");
 
 const { s3Client } = require("../utils/s3Client");
 const Video = require("../models/video");
@@ -127,10 +128,10 @@ exports.getReport = (req, res, next) => {
 
 exports.postReport = (req, res, next) => {
   const videoId = req.params.videoId;
-  const name = req.body.name;
+  const name = _.escape(req.body.name);
   const email = req.body.email;
-  const subject = req.body.subject;
-  const complaint = req.body.complaint;
+  const subject = _.escape(req.body.subject);
+  const complaint = _.escape(req.body.complaint);
   const errors = validationResult(req);
   // console.log(videoId);
 
