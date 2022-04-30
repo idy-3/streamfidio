@@ -29,7 +29,7 @@ router.get("/dashboard", isAuth, adminController.getDashboard);
 router.post("/update-name/:mediaId",  isAuth, adminController.postUpdateVideoName);
 // router.post("/delete/video", adminController.getDashboard);
 
-router.get("/all-reports", isAuth, adminController.getReports);
+router.get("/reports", isAuth, adminController.getReports);
 
 router.post("/solved-report/:reportId", isAuth, adminController.postSolvedReport);
 

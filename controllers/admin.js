@@ -175,7 +175,7 @@ exports.postNewPassword = (req, res, next) => {
     });
 };
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 6;
 
 exports.getDashboard = (req, res, next) => {
   // if(!req.session.isLoggedIn){
@@ -273,7 +273,7 @@ exports.postSolvedReport = (req, res, next) => {
   const update = { solved: solved ? true : false };
   Report.findOneAndUpdate({_id: reportId}, update)
   .then(
-    res.redirect("/all-reports")
+    res.redirect("/reports")
   ).catch((err) => {
     console.log(err);
   });
