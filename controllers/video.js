@@ -4,6 +4,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const _ = require("underscore");
 
+const requestIp = require('request-ip');
+
 const { s3Client } = require("../utils/s3Client");
 const Video = require("../models/video");
 const Report = require("../models/report");
@@ -58,6 +60,17 @@ exports.getVideoDetail = (req, res, next) => {
   let userId = req.session.user ? req.session.user._id : undefined;
   const videoId = req.params.videoId;
   let createdBy = false;
+
+  // let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  // console.log(ip);
+  console.log("req.connection.remoteAddress: "+ req.connection.remoteAddress)
+  console.log("req.headers['x-real-ip']: "+ req.headers['x-real-ip'])
+  console.log("req.connection.localAddress: "+ req.connection.localAddress)
+  console.log("req.headers['x-forwarded-for']: "+ req.headers['x-forwarded-for'])
+  console.log("req.socket.remoteAddress: "+ req.socket.remoteAddress)
+
+  let clientIp = requestIp.getClientIp(req);
+  console.log(clientIp);
 
   // skip if videoId is not valid
   if (!mongoose.Types.ObjectId.isValid(videoId)) {
