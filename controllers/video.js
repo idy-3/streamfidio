@@ -83,7 +83,7 @@ exports.getVideoDetail = (req, res, next) => {
         return res.redirect("/");
       }
 
-      console.log(userId)
+      console.log("userId: " + userId)
       
       if (video.userId){
         createdBy = video.userId.toString() === userId.toString();
