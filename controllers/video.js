@@ -85,7 +85,7 @@ exports.getVideoDetail = (req, res, next) => {
 
       console.log("userId: " + userId)
       
-      if (video.userId){
+      if (video.userId && userId){
         createdBy = video.userId.toString() === userId.toString();
       }
       
@@ -177,6 +177,13 @@ exports.postReport = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.getDmca = (req, res, next) => {
+  res.render("video/dmca", {
+    pageTitle: "Stream Fidio - Easy Video Sharing",
+    errorMsg: "",
+  });
 };
 
 exports.getPrivacy = (req, res, next) => {

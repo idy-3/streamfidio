@@ -30,6 +30,8 @@ router.post(
 
 router.get("/privacy", videoController.getPrivacy);
 
+router.get("/DMCA", videoController.getDmca);
+
 router.post("/delete", isAuth, videoController.postDeleteVideo);
 
 router.get("/:videoId", videoController.getVideoDetail);
