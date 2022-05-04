@@ -34,8 +34,8 @@
                     <%= moment(video.createdAt).format("ddd, Do MMM YYYY") %>
                 </b></p>
                 <% if (isSuper && video.userId){ %>
-                <p><b>
-                    <%= video.userId %>
+                <p><b style="color: #ff0000;">
+                    <%= video.userId.email %>
                 </b></p>
                 <% } %>
                 <a class="btn btn-unline capitalization" href="/<%= video._id %>">Show <%= video.type %></a>

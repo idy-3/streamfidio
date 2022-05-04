@@ -184,6 +184,7 @@ exports.getDashboard = (req, res, next) => {
   let totalVideos;
   const page = +req.query.page || 1;
   let isSuper = req.session.user.isSuper;
+
   if(!isSuper){
     Video.find().countDocuments().then(numVideos => {
       totalVideos = numVideos;
@@ -212,11 +213,15 @@ exports.getDashboard = (req, res, next) => {
     Video.find().countDocuments().then(numVideos => {
       totalVideos = numVideos;
       return Video.find({})
+      .populate('userId', 'email')
       .skip((page - 1) * ITEMS_PER_PAGE)
       .limit(ITEMS_PER_PAGE)
     })
     .then(
         videos => {
+
+          // console.log(videos);
+          
           res.render("admin/dashboard", {
             videos: videos,
             pageTitle: "Stream Fidio - Dashboard",
