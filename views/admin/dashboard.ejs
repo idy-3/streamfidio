@@ -33,6 +33,11 @@
                 <p><b>
                     <%= moment(video.createdAt).format("ddd, Do MMM YYYY") %>
                 </b></p>
+                <% if (isSuper && video.userId){ %>
+                <p><b>
+                    <%= video.userId %>
+                </b></p>
+                <% } %>
                 <a class="btn btn-unline capitalization" href="/<%= video._id %>">Show <%= video.type %></a>
                 <a onclick='editMedia("<%= video._id %>","<%= video.name %>")' style="margin-top: 7px;" class="btn-link" >Edit Name</a>
             </div>
