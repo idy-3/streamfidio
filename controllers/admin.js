@@ -245,8 +245,9 @@ exports.getDashboard = (req, res, next) => {
 exports.postUpdateVideoName = (req, res, next) => {
   const mediaId = req.params.mediaId;
   const mediaName = _.escape(req.body.mediaName);
+  const trending = req.body.trending;
 
-  const update = { name: mediaName };
+  const update = { name: mediaName, trending: trending ? true : false };
   Video.findOneAndUpdate({_id: mediaId}, update)
   .then(
     res.redirect("/dashboard")

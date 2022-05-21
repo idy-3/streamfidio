@@ -13,7 +13,12 @@
                     <span class="close">&times;</span>
                     <form id="mediaNameForm" style="margin: 10px;" method="post">
                         <label for="mediaName">Name</label>
-                        <input class="name-input" id="mediaName" type="input" name="mediaName" />
+                        <input style="margin-bottom: inherit;" class="name-input" id="mediaName" type="input" name="mediaName" />
+                        <% if (isSuper){ %>
+                        <label  for="trending">Trending?:</label>
+                        <input type="checkbox" name="trending" id="trending">
+                        <br>
+                        <% } %>
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <button class="btn btn-unline " type="submit">Edit Name</button>
                     </form>
@@ -39,7 +44,7 @@
                 </b></p>
                 <% } %>
                 <a class="btn btn-unline capitalization" href="/<%= video._id %>">Show <%= video.type %></a>
-                <a onclick='editMedia("<%= video._id %>","<%= video.name %>")' style="margin-top: 7px;" class="btn-link" >Edit Name</a>
+                <a onclick='editMedia("<%= video._id %>","<%= video.name %>","<%= video.trending %>")' style="margin-top: 7px;" class="btn-link" >Edit Name</a>
             </div>
         <% } %>
 

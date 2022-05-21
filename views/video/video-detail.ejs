@@ -4,6 +4,25 @@
     <%- include('../includes/navigation.ejs') %>
     <main class="content">
        <div class="media">
+        <% if(trendingLinks.length > 0){ %>
+           <div class="trending">
+               <ul>
+                <% for(let trend of trendingLinks) { %>
+                    <li>
+                        <a 
+                        class="btn-trending " 
+                        href="/<%= trend._id %>">
+                            <% if (trend.name.length > 15) { %>
+                                <%= trend.name.substring(0, 15) + "..." %>
+                            <% } else { %>
+                                <%= trend.name %>
+                            <% } %>
+                        </a>
+                    </li>
+                <% } %>
+                </ul>
+            </div>
+        <% } %>
         <div class="media_copy" >
             <i onclick="getLink()" class="icon">
                 <%- include('../includes/copy-svg.ejs') %>
@@ -13,9 +32,14 @@
         </div> 
            <% if (video.type === 'image') { %>
                 <img src="<%= video.videoUrl %>" alt="<%= video.type %>" >
-            <% } else {%>
-                <video src="<%= video.videoUrl %>" autoplay controls></video>
-                
+            <% } else if (video.type === 'video' || video.type === 'audio' ) {%>
+                <video src="<%= video.videoUrl %>" controls>
+                    Sorry, your browser doesn't support HTML5 videos.
+                </video>                
+            <% } else { %>
+                <iframe src="http://docs.google.com/gview?url=<%= video.videoUrl %>&embedded=true" 
+                    style=" height:500px;" 
+                    frameborder="0"></iframe>                    
             <% } %>
             <div class="media_footer">
                 <div class="media_footer-first">

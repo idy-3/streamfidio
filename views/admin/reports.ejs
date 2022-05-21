@@ -33,7 +33,7 @@
                     <%= moment(report.createdAt).format("ddd, Do MMM YYYY") %>
                 </b></p>
                 <!-- The Modal Button -->
-                <a class="btn btn-unline" onclick='getModal("<%= report.subject %>","<%= report.complaint %>")' >Get Report</a>
+                <a class="btn btn-unline" onclick='getReport("<%= report.subject %>","<%= report.complaint %>")' >Get Report</a>
                
                                 
                 <form style="margin: 10px;" action="/solved-report/<%= report._id %>" method="post">

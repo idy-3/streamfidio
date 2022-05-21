@@ -76,6 +76,23 @@ exports.getVideoDetail = (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(videoId)) {
     return next();
   }
+
+  let trendingLinks = [];
+  Video.aggregate( [{$match: {trending: true}}, { $sample: { size: 2 } }], function (err, docs) {
+    if (err){
+      console.log(err);
+    }else{  
+      for(const doc of docs){
+        // console.log(doc);
+        trendingLinks.push({
+          _id: doc._id,
+          name: doc.name
+        })
+      }
+      
+    }
+  })
+
   // increment views by 1 and return the updated object
   Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } }, { new: true }).then(
     (video) => {
@@ -93,6 +110,7 @@ exports.getVideoDetail = (req, res, next) => {
         pageTitle: "Stream Fidio - Easy Video Sharing",
         errorMsg: "",
 
+        trendingLinks: trendingLinks,
         video: video,
         dateCreated: video.createdAt,
         createdBy: createdBy,

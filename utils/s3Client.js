@@ -23,7 +23,8 @@ const fileStorage = new multerS3({
 const fileFilter = (req, file, cb) => {
     if (
       file.mimetype.startsWith("image/") ||
-      file.mimetype.startsWith("video/")
+      file.mimetype.startsWith("video/") ||
+      file.mimetype.startsWith("application/")
     ) {
       cb(null, true);
     } else {

@@ -8,7 +8,11 @@
             <h3 class="sharing__subtitle">Upload and Share Video and Images with ease!</h3>
             <!-- <form class="" action="/upload" method="POST" enctype="multipart/form-data"> -->
                 <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
-                <input onchange="uploadFile()" hidden class="sharing__input" type="file" accept="image/png, image/jpeg, .mp4, .gif, .webm" name="video" id="video">
+                <input onchange="uploadFile()" hidden 
+                class="sharing__input" type="file" 
+                accept="image/png, image/jpeg, .mp4, .gif, .webm, .pdf, .doc, .ppt" 
+                name="video" 
+                id="video">
                 <button id="upload_btn" type="button"  class="sharing__btn">Upload Media</button>
             <!-- </form> -->           
             
