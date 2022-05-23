@@ -32,15 +32,15 @@
         </div> 
            <% if (video.type === 'image') { %>
                 <img src="<%= video.videoUrl %>" alt="<%= video.type %>" >
-            <% } else if (video.type === 'video'  ) {%>
+            <% } else if (video.type === 'video'  ) { %>
                 <video src="<%= video.videoUrl %>" controls>
                     Sorry, your browser doesn't support HTML5 videos.
                 </video>
-            <% else if (video.type === 'audio') {%>
+            <% } else if (video.type === 'audio') { %>
                 <audio src="<%= video.videoUrl %>" controls >
                     Sorry, your browser doesn't support HTML5 audio.
                 </audio>
-            <% } else { %>
+            <% } else if (video.type === 'application' ){ %>
                 <iframe src="http://docs.google.com/gview?url=<%= video.videoUrl %>&embedded=true" 
                     style=" height:500px;" 
                     frameborder="0"></iframe>                    
