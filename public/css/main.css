@@ -419,3 +419,16 @@ textarea,
   text-decoration: none;
   cursor: pointer;
 }
+
+.privacy{
+  width: 60%;
+  margin-bottom: 12rem;
+}
+
+.privacy p {
+  font-weight: 500;
+}
+
+.privacy li {
+  text-align: left;
+}
